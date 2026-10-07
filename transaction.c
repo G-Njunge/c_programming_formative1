@@ -5,6 +5,8 @@ int user_choice;
 int acc_balance = 0;
 int deposit_amount;
 int withdraw_amount;
+int dep_count = 0;
+int withdraw_count = 0;
 
 void calc(int,int);
 int main(void)
@@ -37,7 +39,8 @@ int main(void)
                 printf("Your account balance is: %d\n", acc_balance);
                 break;
             case 4:
-                printf("You have made transactions");
+                printf("You have made %d deposits\n", dep_count);
+                printf("You have made %d withdrawals\n", withdraw_count);
                 break;
             case 5:
                 printf("Thank you for using our services!\n");
@@ -70,12 +73,16 @@ void calc(int choice, int amount)
     else
     {
         if (choice == 1)
+        {
             acc_balance += amount;
+            dep_count++;
+        }
         if (choice == 2)
         {
             if (acc_balance > amount)
             {
                 acc_balance -= amount;
+                withdraw_count ++;
             }
             else
             {
@@ -86,5 +93,4 @@ void calc(int choice, int amount)
         printf("Succesfully %s %d kenyan shillings \n", transaction, amount);
         printf("Your account balance is %d Ksh\n", acc_balance);
     }
-
 }
