@@ -8,11 +8,14 @@ int recursive_sum(int vals[], int size);
 
 int main (void)
 {
+    // The distances (in km) of the 7 delivery routes
     int distances[7] = {10, 20, 130, 40, 67, 34, 84};
     int sum = total_distance(distances, 7);
     float avg = avg_distance(distances, 7);
     int l_route = longest_route(distances, 7);
     int rec_sum = recursive_sum(distances, 7);
+
+    // Show the results on the screen
     printf("\n===== DELIVERY DISTANCE ANALYSIS =====\n");
     printf("Total distance: %d km\n", sum);
     printf("Average distance: %.2f km\n", avg);
@@ -23,6 +26,7 @@ int main (void)
 
 }
 
+// Adds up all the route distances
 int total_distance(int vals[], int size)
 {
     int total = 0;
@@ -33,6 +37,7 @@ int total_distance(int vals[], int size)
     return (total);
 }
 
+// Total distance divided by the number of routes
 float avg_distance(int vals[], int size)
 {
     int sum = total_distance(vals, size);
@@ -40,6 +45,7 @@ float avg_distance(int vals[], int size)
     return (avg);
 }
 
+// Goes through the routes and keeps the biggest one seen so far
 int longest_route(int vals[], int size)
 {
     int max = 0;
@@ -50,6 +56,8 @@ int longest_route(int vals[], int size)
     }
     return (max);
 }
+
+// Counts how many routes are longer than 24 km
 void routes_longer_than_x(int vals[], int size)
 {
     int arr[7];
@@ -65,6 +73,7 @@ void routes_longer_than_x(int vals[], int size)
     printf("Routes above %d km: %d\n", distance_limit, o);
 }
 
+// Adds the last route to the total of the rest, repeating until no routes are left
 int recursive_sum(int vals[], int size)
 {
     if (size == 0)
@@ -72,9 +81,3 @@ int recursive_sum(int vals[], int size)
     size --;
     return (vals[size] + recursive_sum(vals, size));
 }
-
-
-
-
-
-

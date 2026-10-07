@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+// Things the program remembers: the balance and how many deposits/withdrawals were made
 int user_choice;
 int acc_balance = 0;
 int deposit_amount;
@@ -14,6 +15,7 @@ int main(void)
 
 
 
+    // Keep showing the menu until the user picks 5 (Exit)
     do
     {
         printf("\n\nMOBILE MONEY TRANSACTION SYSTEM\n\n");
@@ -26,12 +28,14 @@ int main(void)
 
         int menu_read = scanf("%d", &user_choice);
 
+        // Stop if there is no more input
         if (menu_read == EOF)
         {
             printf("\nInput ended. System terminated.\n");
             break;
         }
 
+        // If the user typed something that is not a number, clear it and ask again
         if (menu_read != 1)
         {
             int ch;
@@ -41,6 +45,7 @@ int main(void)
         }
 
 
+        // Do the action that matches the number the user picked
         switch (user_choice){
             case 1:
                 printf("Enter amount to deposit: ");
@@ -72,6 +77,7 @@ int main(void)
     return 0;
 }
 
+// Handles a deposit (choice 1) or a withdrawal (choice 2) and updates the balance
 void calc(int choice, int amount)
 {
     char transaction[10];
@@ -79,6 +85,8 @@ void calc(int choice, int amount)
         strcpy(transaction,"deposited");
     if (choice == 2)
         strcpy(transaction,"withdrawn");
+
+    // The amount must be a whole number greater than zero
     if (scanf("%d", &amount) != 1)
     {
         int ch;
@@ -96,6 +104,7 @@ void calc(int choice, int amount)
         }
         if (choice == 2)
         {
+            // Only allow the withdrawal if there is enough money in the account
             if (acc_balance >= amount)
             {
                 acc_balance -= amount;

@@ -3,27 +3,33 @@
 #include <stdlib.h>
 
 int calc_water_index(int temp, int turb);
+
 int main (void)
 {
+    // The two readings taken from the water sample
     int temperature = 35;
     int turbidity = 40;
 
+    // Turn the two readings into one score out of 100
     int index = calc_water_index(temperature, turbidity);
     char water_quality[10];
 
+    // Decide if the water quality is Good, Warning or Critical based on the score
     if (index >= 80)
-        strcpy(water_quality,"Good");
+        strcpy(water_quality, "Good");
     else if (index >= 60)
-        strcpy(water_quality,"Warning");
+        strcpy(water_quality, "Warning");
     else
-        strcpy(water_quality,"Critical");
+        strcpy(water_quality, "Critical");
 
-    printf("\n\t\tWATER QUALITY REPORT\n\n");
-    printf("\tWater Temperature reading: %d\n", temperature);
-    printf("\tTurbidity reading: %d\n", turbidity);
-    printf("\tCalculated index: %d\n", index);
-    printf("\tBecause the calculated water index is %d, the quality of your water is %s\n\n", index, water_quality);
+    printf("\n");
+    printf("         WATER QUALITY REPORT\n");
+    printf("  Temperature reading            %3d C\n", temperature);
+    printf("  Turbidity reading              %3d NTU\n", turbidity);
+    printf("  Water quality index            %3d / 100\n", index);
+    printf("  Status                         %s\n\n", water_quality);
 
+    return 0;
 }
 
 int calc_water_index(int temp, int turb)
