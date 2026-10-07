@@ -1,17 +1,20 @@
 #include <stdio.h>
 
 int total_distance(int vals[], int size);
-int avg_distance();
-int longest_route();
-int routes_longer_than_x();
+float avg_distance(int vals[], int size);
+int longest_route(int vals[], int size);
+int routes_longer_than_x(int vals[], int size);
 
 int main (void)
 {
-    int distances[7] = {10, 20, 30, 40, 67, 34, 84};
-    int sum = total_distance(distances,7);
+    int distances[7] = {10, 20, 130, 40, 67, 34, 84};
+    int sum = total_distance(distances, 7);
+    float avg = avg_distance(distances, 7);
+    int l_route = longest_route(distances, 7);
     printf("\n===== DELIVERY DISTANCE ANALYSIS =====\n");
     printf("Total distance: %dkm\n", sum);
-    // printf(")
+    printf("Average distance: %.2fkm\n", avg);
+    printf("Longest route: %dkm\n", l_route);
 
 }
 
@@ -24,6 +27,25 @@ int total_distance(int vals[], int size)
     }
     return (total);
 }
+
+float avg_distance(int vals[], int size)
+{
+    int sum = total_distance(vals, size);
+    float avg = ((float)sum / size);
+    return (avg);
+}
+
+int longest_route(int vals[], int size)
+{
+    int max = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if (vals[i] > max)
+            max = vals[i];
+    }
+    return (max);
+}
+
 
 
 
