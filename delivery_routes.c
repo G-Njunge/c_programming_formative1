@@ -3,7 +3,8 @@
 int total_distance(int vals[], int size);
 float avg_distance(int vals[], int size);
 int longest_route(int vals[], int size);
-int routes_longer_than_x(int vals[], int size);
+void routes_longer_than_x(int vals[], int size);
+int recursive_sum();
 
 int main (void)
 {
@@ -15,6 +16,8 @@ int main (void)
     printf("Total distance: %dkm\n", sum);
     printf("Average distance: %.2fkm\n", avg);
     printf("Longest route: %dkm\n", l_route);
+    routes_longer_than_x(distances, 7);
+
 
 }
 
@@ -45,6 +48,22 @@ int longest_route(int vals[], int size)
     }
     return (max);
 }
+void routes_longer_than_x(int vals[], int size)
+{
+    int arr[7];
+    int o = 0;
+    int distance_limit = 24;
+    for(int i = 0; i < size; i++)
+    {
+        if (vals[i] > distance_limit)
+        {
+            o++;
+        }
+    }
+    printf("Routes above %d km: %d\n", distance_limit, o);
+}
+
+
 
 
 
