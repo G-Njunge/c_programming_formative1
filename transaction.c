@@ -1,11 +1,15 @@
 #include <stdio.h>
+#include <string.h>
 
+int user_choice;
+int acc_balance = 0;
+int deposit_amount;
+int withdraw_amount;
+
+void calc(int,int);
 int main(void)
 {
-    int user_choice;
-    int acc_balance = 0;
-    int valid = 0;
-    int deposit_amount;
+
 
 
     do
@@ -22,32 +26,12 @@ int main(void)
 
         switch (user_choice){
             case 1:
-                    printf("Enter amount to deposit: ");
-
-                    if (scanf("%d", &deposit_amount) != 1)
-                    {
-                        int ch;
-                        while ((ch = getchar()) != '\n' && ch != EOF);
-                        printf("invalid option, amount entered must be an integer i.e 1, 10000\n");
-                        continue;
-                    }
-                    else if (deposit_amount <= 0)
-                        printf("Deposit must be greater than zero.\n");
-                    else
-                    {
-                        acc_balance += deposit_amount;
-                        printf("Succesfully deposited %d kenyan shillings to your account\n", deposit_amount);
-                        printf("Your account balance is %d Ksh\n", acc_balance);
-                    }
-                    break;
+                printf("Enter amount to deposit: ");
+                calc(user_choice, deposit_amount);
+                break;
             case 2:
                 printf("Enter amount to withdraw: ");
-                int withdraw_amount;
-                scanf("%d", &withdraw_amount);
-                if (withdraw_amount <= acc_balance)
-                    acc_balance -= withdraw_amount;
-                // else
-                //     continue;
+                calc(user_choice, withdraw_amount);
                 break;
             case 3:
                 printf("Your account balance is: %d\n", acc_balance);
@@ -66,4 +50,41 @@ int main(void)
         }
     }
     while (user_choice != 5);
+}
+
+void calc(int choice, int amount)
+{
+    char transaction[10];
+    if (choice == 1)
+        strcpy(transaction,"deposited");
+    if (choice == 2)
+        strcpy(transaction,"withdrawn");
+    if (scanf("%d", &amount) != 1)
+    {
+        int ch;
+        while ((ch = getchar()) != '\n' && ch != EOF);
+        printf("invalid option, amount entered must be an integer i.e 1, 10000\n");
+    }
+    else if (amount <= 0)
+        printf("Amount must be greater than zero.\n");
+    else
+    {
+        if (choice == 1)
+            acc_balance += amount;
+        if (choice == 2)
+        {
+            if (acc_balance > amount)
+            {
+                acc_balance -= amount;
+            }
+            else
+            {
+                printf("You have insufficient balance to withdraw %d, your current balance is %d", amount, acc_balance);
+                return;
+            }
+        }
+        printf("Succesfully %s %d kenyan shillings \n", transaction, amount);
+        printf("Your account balance is %d Ksh\n", acc_balance);
+    }
+
 }
