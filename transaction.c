@@ -4,6 +4,10 @@ int main(void)
 {
     int user_choice;
     int acc_balance = 0;
+    int valid = 0;
+    int deposit_amount;
+
+
     do
     {
         printf("\n\nMOBILE MONEY TRANSACTION SYSTEM\n\n");
@@ -18,11 +22,24 @@ int main(void)
 
         switch (user_choice){
             case 1:
-                printf("Enter amount to deposit: ");
-                int deposit_amount;
-                scanf("%d", &deposit_amount);
-                acc_balance += deposit_amount;
-                break;
+                    printf("Enter amount to deposit: ");
+
+                    if (scanf("%d", &deposit_amount) != 1)
+                    {
+                        int ch;
+                        while ((ch = getchar()) != '\n' && ch != EOF);
+                        printf("invalid option, amount entered must be an integer i.e 1, 10000\n");
+                        continue;
+                    }
+                    else if (deposit_amount <= 0)
+                        printf("Deposit must be greater than zero.\n");
+                    else
+                    {
+                        acc_balance += deposit_amount;
+                        printf("Succesfully deposited %d kenyan shillings to your account\n", deposit_amount);
+                        printf("Your account balance is %d Ksh\n", acc_balance);
+                    }
+                    break;
             case 2:
                 printf("Enter amount to withdraw: ");
                 int withdraw_amount;
@@ -42,7 +59,9 @@ int main(void)
                 printf("Thank you for using our services!\n");
                 break;
             default:
-                printf("invalid option\n");
+                printf("\ninvalid option\n");
+                int ch;
+                while ((ch = getchar()) != '\n' && ch != EOF);
                 break;
         }
     }
