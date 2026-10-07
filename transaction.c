@@ -23,7 +23,22 @@ int main(void)
         printf("4. Transaction Summary\n");
         printf("5. Exit\n\n");
         printf("Enter choice: ");
-        scanf("%d", &user_choice);
+
+        int menu_read = scanf("%d", &user_choice);
+
+        if (menu_read == EOF)
+        {
+            printf("\nInput ended. System terminated.\n");
+            break;
+        }
+
+        if (menu_read != 1)
+        {
+            int ch;
+            while ((ch = getchar()) != '\n' && ch != EOF);
+            printf("\ninvalid option, please enter a number from 1 to 5\n");
+            continue;
+        }
 
 
         switch (user_choice){
@@ -49,10 +64,12 @@ int main(void)
                 printf("\ninvalid option\n");
                 int ch;
                 while ((ch = getchar()) != '\n' && ch != EOF);
-                break;
+                continue;
         }
     }
     while (user_choice != 5);
+
+    return 0;
 }
 
 void calc(int choice, int amount)
@@ -79,18 +96,18 @@ void calc(int choice, int amount)
         }
         if (choice == 2)
         {
-            if (acc_balance > amount)
+            if (acc_balance >= amount)
             {
                 acc_balance -= amount;
                 withdraw_count ++;
             }
             else
             {
-                printf("You have insufficient balance to withdraw %d, your current balance is %d", amount, acc_balance);
+                printf("Transaction rejected: insufficient balance to withdraw %d, your current balance is %d\n", amount, acc_balance);
                 return;
             }
         }
-        printf("Succesfully %s %d kenyan shillings \n", transaction, amount);
-        printf("Your account balance is %d Ksh\n", acc_balance);
+        printf("Successfully %s %d RWF \n", transaction, amount);
+        printf("Your account balance is %d RWF\n", acc_balance);
     }
 }
