@@ -1,16 +1,10 @@
-/*
-  Smart Parking Space Monitor
-  Ultrasonic Sensor -> Arduino Uno -> Decision -> LEDs + Buzzer
-*/
-
-// ---- pin assignments: change these to match your wiring ----
-const int TRIG      = 3;
+// pin assignments
+const int TRIG      = 6;
 const int ECHO      = 4;
-const int GREEN_LED = 6;
-const int RED_LED   = 7;
-const int BUZZER    = 8;
+const int GREEN_LED = 2;
+const int RED_LED   = 3;
+const int BUZZER    = 11;
 
-// ---- occupancy threshold ----
 // A vehicle closer than this is treated as parked in the space.
 const int THRESHOLD_CM = 30;
 
@@ -57,6 +51,7 @@ void loop() {
     digitalWrite(RED_LED, HIGH);
     digitalWrite(GREEN_LED, LOW);
     tone(BUZZER, 1000);
+    Serial.println("   Buzzziiing");
     Serial.println("   Status: OCCUPIED");
   } else {
     // AVAILABLE
